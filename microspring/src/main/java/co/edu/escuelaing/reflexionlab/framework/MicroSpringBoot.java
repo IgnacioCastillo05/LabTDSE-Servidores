@@ -43,12 +43,10 @@ public class MicroSpringBoot {
         MicroSpringBoot app = new MicroSpringBoot();
 
         if (args.length > 0) {
-            // Modo 1: clases explícitas en la línea de comandos
             for (String className : args) {
                 app.loadController(className);
             }
         } else {
-            // Modo 2: escaneo automático del classpath
             app.scanClasspath();
         }
 
@@ -124,7 +122,6 @@ public class MicroSpringBoot {
     private String toClassName(File baseDir, File classFile) {
         String basePath  = baseDir.getAbsolutePath();
         String classPath = classFile.getAbsolutePath();
-        // Quitar el directorio base y la extensión .class
         String relative = classPath.substring(basePath.length() + 1, classPath.length() - 6);
         return relative.replace(File.separatorChar, '.');
     }
@@ -137,7 +134,6 @@ public class MicroSpringBoot {
                 registerRoutes(clazz);
             }
         } catch (Throwable ignored) {
-            // Clases del sistema o sin constructor accesible: se ignoran silenciosamente
         }
     }
 
@@ -161,18 +157,15 @@ public class MicroSpringBoot {
         BufferedReader in  = new BufferedReader(new InputStreamReader(client.getInputStream()));
         OutputStream   out = client.getOutputStream();
 
-        // Leer línea de solicitud
         String requestLine = in.readLine();
         if (requestLine == null || requestLine.isBlank()) return;
         LOGGER.info("Recibido: " + requestLine);
 
-        // Consumir headers
         while (true) {
             String line = in.readLine();
             if (line == null || line.isBlank()) break;
         }
 
-        // Parsear: GET /path?query HTTP/1.1
         String[] parts = requestLine.split(" ");
         if (parts.length < 2) { sendError(out, 400, "Bad Request"); return; }
 
@@ -185,15 +178,12 @@ public class MicroSpringBoot {
         }
 
         String path  = uri.getPath();
-        String query = uri.getQuery(); // puede ser null
+        String query = uri.getQuery();
 
-        // 1) Buscar ruta registrada por el framework IoC (tiene prioridad)
         RouteEntry route = routes.get(path);
         
-        // Si no hay ruta para "/" redirigir a index.html estático
         if (route == null && path.equals("/")) path = "/index.html";
 
-        // 2) Intentar servir archivos estáticos
         if (route == null && serveStaticFile(out, path)) return;
         if (route != null) {
             String body = invokeRoute(route, query);
@@ -213,10 +203,8 @@ public class MicroSpringBoot {
         Method method = route.method;
         Parameter[] params = method.getParameters();
 
-        // Parsear query string → mapa de parámetros
         Map<String, String> queryParams = parseQuery(query);
 
-        // Construir los argumentos usando reflexión sobre las anotaciones de parámetros
         Object[] args = new Object[params.length];
         for (int i = 0; i < params.length; i++) {
             if (params[i].isAnnotationPresent(RequestParam.class)) {
@@ -227,7 +215,6 @@ public class MicroSpringBoot {
             }
         }
 
-        // Invocar el método vía reflexión
         Object result = method.invoke(route.instance, args);
         return result != null ? result.toString() : "";
     }
