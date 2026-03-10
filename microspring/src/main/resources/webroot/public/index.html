@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>MicroSpringBoot - Lab IoC</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #f0f4f8;
+            color: #2d3748;
+            padding: 40px 20px;
+        }
+        .container {
+            max-width: 760px;
+            margin: 0 auto;
+        }
+        h1 {
+            font-size: 2rem;
+            color: #1a202c;
+            border-bottom: 3px solid #4299e1;
+            padding-bottom: 12px;
+            margin-bottom: 8px;
+        }
+        .subtitle {
+            color: #718096;
+            margin-bottom: 32px;
+            font-size: 0.95rem;
+        }
+        .card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px 24px;
+            margin-bottom: 16px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            border-left: 4px solid #4299e1;
+        }
+        .card h2 {
+            font-size: 1rem;
+            color: #2b6cb0;
+            margin-bottom: 6px;
+        }
+        .card p {
+            color: #718096;
+            font-size: 0.88rem;
+            margin-bottom: 10px;
+        }
+        a.btn {
+            display: inline-block;
+            padding: 6px 14px;
+            background: #4299e1;
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            margin-right: 6px;
+        }
+        a.btn:hover { background: #2b6cb0; }
+        a.btn.green { background: #48bb78; }
+        a.btn.green:hover { background: #276749; }
+        .badge {
+            display: inline-block;
+            background: #ebf8ff;
+            color: #2b6cb0;
+            border-radius: 4px;
+            padding: 2px 8px;
+            font-size: 0.78rem;
+            font-family: monospace;
+            margin-right: 4px;
+        }
+        img.demo { max-width: 100%; border-radius: 6px; margin-top: 12px; }
+        footer { margin-top: 40px; color: #a0aec0; font-size: 0.82rem; text-align: center; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>🌱 MicroSpringBoot</h1>
+    <p class="subtitle">Framework IoC mínimo — ARSW Lab · Reflexión y Anotaciones en Java</p>
+
+    <div class="card">
+        <h2>HelloController</h2>
+        <p>Ruta simple sin parámetros. Detectada automáticamente por <code>@RestController</code>.</p>
+        <span class="badge">@GetMapping("/greetings")</span>
+        <br><br>
+        <a class="btn" href="/greetings">Ir a /greetings</a>
+    </div>
+
+    <div class="card">
+        <h2>GreetingController</h2>
+        <p>Demuestra <code>@RequestParam</code> con <code>defaultValue</code>. Si no se pasa <em>name</em>, usa "World".</p>
+        <span class="badge">@GetMapping("/greeting")</span>
+        <span class="badge">@RequestParam("name")</span>
+        <br><br>
+        <a class="btn" href="/greeting">Sin parámetro</a>
+        <a class="btn green" href="/greeting?name=Kike">?name=Kike</a>
+    </div>
+
+    <div class="card">
+        <h2>TimeController — /time</h2>
+        <p>Devuelve la hora actual. Acepta <code>?zone=</code> para cambiar la zona horaria.</p>
+        <span class="badge">@GetMapping("/time")</span>
+        <span class="badge">@RequestParam("zone")</span>
+        <br><br>
+        <a class="btn" href="/time">Bogotá (default)</a>
+        <a class="btn green" href="/time?zone=Europe/Berlin">Berlin</a>
+    </div>
+
+    <div class="card">
+        <h2>TimeController — /about</h2>
+        <p>Descripción del framework y capacidades implementadas.</p>
+        <span class="badge">@GetMapping("/about")</span>
+        <br><br>
+        <a class="btn" href="/about">Ver /about</a>
+    </div>
+
+    <div class="card">
+        <h2>📁 Archivo estático (PNG)</h2>
+        <p>El servidor también sirve imágenes y recursos estáticos directamente.</p>
+        <a class="btn" href="/logo.png">Ver logo.png</a>
+    </div>
+
+    <footer>
+        MicroSpringBoot · Escuela Colombiana de Ingeniería Julio Garavito · ARSW
+    </footer>
+</div>
+</body>
+</html>

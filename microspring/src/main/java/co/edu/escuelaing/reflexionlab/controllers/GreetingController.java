@@ -1,0 +1,28 @@
+package co.edu.escuelaing.reflexionlab.controllers;
+
+import co.edu.escuelaing.reflexionlab.annotations.GetMapping;
+import co.edu.escuelaing.reflexionlab.annotations.RequestParam;
+import co.edu.escuelaing.reflexionlab.annotations.RestController;
+
+import java.util.concurrent.atomic.AtomicLong;
+
+/**
+ * Controlador del enunciado: demuestra @RequestParam con defaultValue.
+ *
+ * Prueba en el navegador:
+ *   http://localhost:35000/greeting          → "Hola World"
+ *   http://localhost:35000/greeting?name=Kike → "Hola Kike"
+ */
+@RestController
+public class GreetingController {
+
+    private static final String template = "Hello, %s!";
+    private final AtomicLong counter = new AtomicLong();
+
+    @GetMapping("/greeting")
+    public String greeting(@RequestParam(value = "name", defaultValue = "World") String name) {
+        return "<h1>Hola " + name + "</h1>"
+             + "<p>Visitas: " + counter.incrementAndGet() + "</p>"
+             + "<p>Prueba: <a href='/greeting?name=Kike'>/greeting?name=Kike</a></p>";
+    }
+}
