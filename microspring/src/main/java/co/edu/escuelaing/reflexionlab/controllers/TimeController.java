@@ -27,7 +27,7 @@ public class TimeController {
             zoneId = ZoneId.of("America/Bogota");
         }
         String now = LocalDateTime.now(zoneId).format(FMT);
-        return "<h1>🕐 Hora actual</h1>"
+        return "<h1>Hora actual</h1>"
              + "<p><strong>" + now + "</strong> (" + zoneId + ")</p>"
              + "<p>Prueba con otra zona: <a href='/time?zone=Europe/Berlin'>/time?zone=Europe/Berlin</a></p>";
     }
@@ -38,11 +38,11 @@ public class TimeController {
              + "<p>Framework IoC mínimo construido con reflexión Java.</p>"
              + "<h2>Capacidades demostradas:</h2>"
              + "<ul>"
-             + "<li>✅ Escaneo automático de <code>@RestController</code> via reflexión</li>"
-             + "<li>✅ Routing dinámico con <code>@GetMapping</code></li>"
-             + "<li>✅ Inyección de parámetros con <code>@RequestParam</code></li>"
-             + "<li>✅ Archivos estáticos (HTML, PNG, CSS)</li>"
-             + "<li>✅ Múltiples solicitudes no concurrentes</li>"
+             + "<li>Escaneo automático de <code>@RestController</code> via reflexión</li>"
+             + "<li>Routing dinámico con <code>@GetMapping</code></li>"
+             + "<li>Inyección de parámetros con <code>@RequestParam</code></li>"
+             + "<li>Archivos estáticos (HTML, PNG, CSS)</li>"
+             + "<li>Múltiples solicitudes no concurrentes</li>"
              + "</ul>"
              + "<p><a href='/'>← Inicio</a></p>";
     }
