@@ -87,10 +87,21 @@ El servidor se levanta en `http://localhost:35000`.
 1. Conexión con la instancia por SSH
 ![alt text](microspring/img/conexionInstancia.jpeg)
 
-2. Pasar el zip de las clases compiladas por SSH
+Se hizo la conexión con el comando dado directamente por AWS. Luego se tuvo que realizar la instalación de Amazon Coretto utilizando los siguientes comandos:
+- sudo yum install java-21-amazon-corretto
+- sudo yum install java-21-amazon-corretto-devel
+
+3. Pasar el zip de las clases compiladas por SSH
 ![alt text](microspring/img/classes.jpeg)
 
-3. Pruebas
+Se creó una carpeta en donde se colocó el .pem para poder establecer la comunicación SSH entre la instancia y la máquina local. Se abrió una terminal PowerShell desde la ruta de la carpeta local donde estaba el .pem y se colocó el .zip de classes del proyecto original, se utilizó el siguiente comando:
+- scp -i LabTDSE.pem classes.zip ec2-user@ec2-44-192-51-226.compute-1.amazonaws.com:~/
+Mediante ese comando se realizó el envió de la carpeta comprimida a la instancia; luego solo se descomprimió y se cambió de nombre a "reflexion"
+Para su ejecución se utilizó el:
+- java -cp reflexion/classes co.edu.escuelaing.reflexionlab.framework.MicroSpringBoot
+
+5. Pruebas
+Se verificaron los distintos path (detectando todos los @RestControllers)
 ![alt text](microspring/img/greetings.jpeg)
 
 ![alt text](microspring/img/helloN.jpeg)
